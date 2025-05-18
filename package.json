@@ -9,7 +9,7 @@
     "start": "node --conditions react-server server/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "roggc",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.27.1",
