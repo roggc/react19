@@ -7,7 +7,7 @@ export default function () {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // console.log("yeahhhgggrrrr");
+    console.log("rendered");
   }, []);
 
   return (
