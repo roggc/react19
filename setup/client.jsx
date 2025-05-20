@@ -1,8 +1,13 @@
 import { use } from "react";
 import { createFromFetch } from "react-server-dom-webpack/client";
 import { createRoot } from "react-dom/client";
+import React from "react";
 
-const root = createRoot(document.getElementById("root"));
+const domElement = document.getElementById("root");
+if (!domElement) {
+  throw new Error("Root element not found");
+}
+const root = createRoot(domElement);
 root.render(<Root />);
 
 const cache = new Map();

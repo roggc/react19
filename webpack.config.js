@@ -4,7 +4,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: [path.resolve(__dirname, "./src/index.js")],
+  entry: [
+    // path.resolve(
+    //   __dirname,
+    //   "./node_modules/react19-setup-module/dist/client.js"
+    // ),
+    path.resolve(__dirname, "./setup/client.jsx"),
+  ],
   output: {
     path: path.resolve(__dirname, "./public"),
     filename: "main.js",
@@ -12,8 +18,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         use: "babel-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
