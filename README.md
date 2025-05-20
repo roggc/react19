@@ -1,5 +1,7 @@
 # Project ready to develop with React 19 (Typescript or Javascript)
 
+This project can be created with **`npx create-react19-app@latest my-app`**.
+
 This is a project ready to develop with **React 19**. Specifically with **Server Functions**. With the use of Server Functions and **Suspense** you can fetch data from the Server once in the **Client**, so there is no need for Server Components then (if you don't care about SEO).
 
 This project is ready to develop either in **Typescript** or **Javascript**. If an `app.tsx` is found, then it will take preference over a possible `app.jsx` or `app.js`. There must be at least an `app.tsx` or `app.jsx` (or `app.js`).
