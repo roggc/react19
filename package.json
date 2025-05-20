@@ -1,7 +1,7 @@
 {
-  "name": "react19setup",
+  "name": "react19ready",
   "version": "1.0.0",
-  "description": "",
+  "description": "A React 19 ready project with Server Functions (and Server Components if you need them) and TypeScript support (and Javascript).",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
