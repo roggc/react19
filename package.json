@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "roggc",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.27.1",
     "@babel/plugin-transform-modules-commonjs": "^7.27.1",
