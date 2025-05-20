@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"webpack -w\" \"node --conditions react-server setup/server.js\""
+    "dev": "concurrently \"webpack -w\" \"node --conditions react-server setup/server.js\"",
+    "start": "node --conditions react-server setup/server.js"
   },
   "keywords": [],
   "author": "roggc",
@@ -22,6 +23,7 @@
     "html-webpack-plugin": "^5.6.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-enhanced-suspense": "^4.0.2",
     "react-server-dom-webpack": "^19.1.0",
     "ts-loader": "^9.5.2",
     "webpack": "^5.99.8",

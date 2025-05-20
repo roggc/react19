@@ -4,13 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: [
-    // path.resolve(
-    //   __dirname,
-    //   "./node_modules/react19-setup-module/dist/client.js"
-    // ),
-    path.resolve(__dirname, "./setup/client.jsx"),
-  ],
+  entry: [path.resolve(__dirname, "./setup/client.jsx")],
   output: {
     path: path.resolve(__dirname, "./public"),
     filename: "main.js",
@@ -18,13 +12,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        use: "babel-loader",
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
+        test: /\.(js|jsx|ts|tsx)$/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              ["@babel/preset-react", { runtime: "automatic" }],
+              "@babel/preset-typescript",
+            ],
+            plugins: ["@babel/plugin-transform-modules-commonjs"],
+          },
+        },
         exclude: /node_modules/,
       },
     ],
@@ -33,4 +31,7 @@ module.exports = {
     new ReactServerWebpackPlugin({ isServer: false }),
     new HtmlWebpackPlugin({ template: "index.html" }),
   ],
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
 };

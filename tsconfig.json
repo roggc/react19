@@ -4,8 +4,6 @@
     "module": "esnext",
     "jsx": "react-jsx",
     "declaration": false,
-    // "outDir": "./dist",
-    // "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -13,7 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "noEmitOnError": true,
     "noEmit": false
-    // "types": ["@testing-library/jest-dom", "node"]
   },
   "include": ["src/**/*"],
   "exclude": [

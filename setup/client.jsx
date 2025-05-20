@@ -1,7 +1,6 @@
 import { use } from "react";
 import { createFromFetch } from "react-server-dom-webpack/client";
 import { createRoot } from "react-dom/client";
-import React from "react";
 
 const domElement = document.getElementById("root");
 if (!domElement) {
