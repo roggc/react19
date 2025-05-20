@@ -1,5 +1,5 @@
 {
-  "name": "react19ready",
+  "name": "react19-app",
   "version": "1.0.0",
   "description": "A React 19 ready project with Server Functions (and Server Components if you need them) and TypeScript support (and Javascript).",
   "main": "index.js",
