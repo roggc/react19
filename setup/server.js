@@ -38,7 +38,6 @@ app.get("/react", (req, res) => {
     const possibleExtensions = [".tsx", ".ts", ".jsx", ".js"];
     let appPath = null;
 
-    // Buscar el primer archivo que exista con alguna de las extensiones
     for (const ext of possibleExtensions) {
       const candidatePath = path.resolve(process.cwd(), `src/app${ext}`);
       if (existsSync(candidatePath)) {
@@ -47,7 +46,6 @@ app.get("/react", (req, res) => {
       }
     }
 
-    // Verificar si se encontró un archivo
     if (!appPath) {
       throw new Error(
         "No app file found in src/ with supported extensions (.js, .jsx, .ts, .tsx)"
