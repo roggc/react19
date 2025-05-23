@@ -16,7 +16,6 @@ function Root() {
   let content = cache.get("app");
   if (!content) {
     if (window.__RSC_PAYLOAD) {
-      console.log("Using server-injected RSC payload");
       try {
         const response = new Response(
           new ReadableStream({
@@ -34,7 +33,6 @@ function Root() {
         content = createFromFetch(fetch("/____react____"));
       }
     } else {
-      console.log("Fetching RSC payload from /____react____");
       content = createFromFetch(fetch("/____react____"));
     }
     cache.set("app", content);
