@@ -1,5 +1,5 @@
 "use server";
 
 export default function () {
-  return new Promise<string>((res) => setTimeout(() => res("Done"), 8000));
+  return new Promise<string>((res) => setTimeout(() => res("Done"), 4000));
 }

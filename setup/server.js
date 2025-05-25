@@ -76,41 +76,37 @@ app.get("/", (req, res) => {
       moduleMap
     );
 
-    // Create a transform stream to capture the RSC payload
+    let rscPayload = "";
     const { Writable } = require("stream");
-    class HtmlWritable extends Writable {
-      constructor() {
-        super();
-        this.chunks = [];
-      }
-      _write(chunk, encoding, callback) {
-        this.chunks.push(chunk);
+    const rscWritable = new Writable({
+      write(chunk, encoding, callback) {
+        rscPayload += chunk.toString();
         callback();
-      }
-      end() {
-        const rscPayload = Buffer.concat(this.chunks).toString("utf8");
-        // Create the final HTML response
-        // Combine the HTML start, RSC payload, and HTML end
-        const html =
-          htmlStart +
-          `<div id="root"></div><script src="/main.js"></script><script>window.__RSC_PAYLOAD = ${JSON.stringify(
-            rscPayload
-          )};</script>` +
-          htmlEnd;
-        // const html = htmlTemplate.replace(
-        //   "<!--RSC_PAYLOAD-->",
-        //   `<script>window.__RSC_PAYLOAD = ${JSON.stringify(
-        //     rscPayload
-        //   )};</script>`
-        // );
-        // Send the final HTML response
-        res.setHeader("Content-Type", "text/html");
-        res.send(html);
-        super.end();
-      }
-    }
+      },
+    });
 
-    pipe(new HtmlWritable());
+    res.setHeader("Content-Type", "text/html");
+    res.write(
+      htmlStart + `<div id="root"></div><script src="/main.js"></script>`
+    );
+
+    pipe(rscWritable);
+
+    rscWritable.on("finish", () => {
+      // Inject the RSC payload as a script
+      res.write(
+        `<script>window.__RSC_PAYLOAD = ${JSON.stringify(rscPayload)};</script>`
+      );
+
+      // Send the end of the HTML
+      res.write(htmlEnd);
+      res.end();
+    });
+
+    rscWritable.on("error", (error) => {
+      console.error("Error en el stream RSC:", error);
+      res.status(500).end("Error interno del servidor");
+    });
   } catch (error) {
     console.error("Error rendering React app:", error);
     res.status(500).send("Internal Server Error");

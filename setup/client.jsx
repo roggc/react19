@@ -16,7 +16,6 @@ function Root() {
   let content = cache.get("app");
   if (!content) {
     if (window.__RSC_PAYLOAD) {
-      console.log("Using RSC payload from window.__RSC_PAYLOAD");
       // If RSC payload is available, use it to create content
       try {
         const response = new Response(
@@ -35,7 +34,6 @@ function Root() {
         content = createFromFetch(fetch("/react"));
       }
     } else {
-      console.log("Fetching RSC from /react");
       // If no RSC payload is available, fetch the RSC from the server
       content = createFromFetch(fetch("/react"));
     }
