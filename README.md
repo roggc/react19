@@ -28,7 +28,7 @@ The app is developed in the `src` folder.
 
 The `setup` folder has the `server.js` and `client.jsx` files.
 
-The `server.js` file is the one executed by `node`. It defines two endpoints, `/` and `/rsc_payload`. The fist one, `/`, serves the `index.html` file found in the root directory of the project. Before sending this file to the Client, it injects the `div` tag where the app will be created in the Client, and the `main.js` script tag.
+The `server.js` file is the one executed by `node`. It defines two endpoints, `/` and `/rsc_payload`. The fist one, `/`, serves the `index.html` file found in the `src` directory of the project. Before sending this file to the Client, it injects the `div` tag where the app will be created in the Client, and the `main.js` script tag.
 
 The `client.jsx` file defines the `main.js` script. What it does is to fetch the RSC payload from the endpoint `/rsc_payload` and create the app with this RSC payload into the `div`.
 
