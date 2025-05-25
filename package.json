@@ -22,7 +22,7 @@
     "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-enhanced-suspense": "^4.0.2",
+    "react-enhanced-suspense": "^4.0.3",
     "react-server-dom-webpack": "^19.1.0",
     "webpack": "^5.99.8",
     "webpack-cli": "^6.0.1"
