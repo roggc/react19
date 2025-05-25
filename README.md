@@ -1,6 +1,6 @@
 # Project ready to develop with React 19 (Typescript or Javascript) to make SPA (Single Page Application) without SSR (Server Side Rendering)
 
-This project can be created with **`npx create-react19-app@latest --nossr my-app`**. **If you are looking for multi-page file based routing with SSR app then use the command: `npx create-react19-app@latest my-app` (without passing the `--nossr` option). It will create a project like [this one]() instead.**
+This project can be created with **`npx create-react19-app@latest --nossr my-app`**. **If you are looking for multi-page file based routing with SSR app then use the command: `npx create-react19-app@latest my-app` (without passing the `--nossr` option). It will create a project like [this one](https://github.com/roggc/react19ssr) instead.**
 
 This is a project ready to develop with **React 19** to make **SPAs** (Single Page Applications) that work entirely in the **Client**, **without SSR** (Server Side Rendering).
 
