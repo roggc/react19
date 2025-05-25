@@ -1,18 +1,14 @@
-"use client";
-
-import { useState } from "react";
 import Suspense from "react-enhanced-suspense";
-import serverFunction from "./server-function";
+// import serverFunction from "./server-function";
+import Counter from "./counter";
 
 export default function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <h1>Hello you!</h1>
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-      <Suspense fallback="Loading..." resourceId="my-resource">
-        {serverFunction()}
+      <Counter />
+      <Suspense fallback="Loading...">
+        {new Promise<string>((res) => setTimeout(() => res("Done"), 8000))}
       </Suspense>
     </>
   );

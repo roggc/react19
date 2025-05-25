@@ -57,6 +57,19 @@ app.get("/", (req, res) => {
       "utf8"
     );
 
+    const bodyStartIndex = htmlTemplate.indexOf("<body");
+    const bodyOpenEndIndex = htmlTemplate.indexOf(">", bodyStartIndex) + 1;
+    const bodyCloseIndex = htmlTemplate.indexOf("</body>");
+    if (
+      bodyStartIndex === -1 ||
+      bodyOpenEndIndex === -1 ||
+      bodyCloseIndex === -1
+    ) {
+      throw new Error("No <body> and </body> tags found in HTML template");
+    }
+    const htmlStart = htmlTemplate.slice(0, bodyOpenEndIndex);
+    const htmlEnd = htmlTemplate.slice(bodyCloseIndex);
+
     // Render the app as an RSC stream
     const { pipe } = renderToPipeableStream(
       React.createElement(ReactApp),
@@ -76,12 +89,21 @@ app.get("/", (req, res) => {
       }
       end() {
         const rscPayload = Buffer.concat(this.chunks).toString("utf8");
-        const html = htmlTemplate.replace(
-          "<!--RSC_PAYLOAD-->",
-          `<script>window.__RSC_PAYLOAD = ${JSON.stringify(
+        // Create the final HTML response
+        // Combine the HTML start, RSC payload, and HTML end
+        const html =
+          htmlStart +
+          `<div id="root"></div><script src="/main.js"></script><script>window.__RSC_PAYLOAD = ${JSON.stringify(
             rscPayload
-          )};</script>`
-        );
+          )};</script>` +
+          htmlEnd;
+        // const html = htmlTemplate.replace(
+        //   "<!--RSC_PAYLOAD-->",
+        //   `<script>window.__RSC_PAYLOAD = ${JSON.stringify(
+        //     rscPayload
+        //   )};</script>`
+        // );
+        // Send the final HTML response
         res.setHeader("Content-Type", "text/html");
         res.send(html);
         super.end();
@@ -95,7 +117,7 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/____react____", (req, res) => {
+app.get("/react", (req, res) => {
   try {
     const possibleExtensions = [".tsx", ".jsx", ".js"];
     let appPath = null;

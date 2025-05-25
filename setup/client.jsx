@@ -16,6 +16,8 @@ function Root() {
   let content = cache.get("app");
   if (!content) {
     if (window.__RSC_PAYLOAD) {
+      console.log("Using RSC payload from window.__RSC_PAYLOAD");
+      // If RSC payload is available, use it to create content
       try {
         const response = new Response(
           new ReadableStream({
@@ -30,10 +32,12 @@ function Root() {
         content = createFromReadableStream(response.body);
       } catch (error) {
         console.error("Error parsing RSC payload:", error);
-        content = createFromFetch(fetch("/____react____"));
+        content = createFromFetch(fetch("/react"));
       }
     } else {
-      content = createFromFetch(fetch("/____react____"));
+      console.log("Fetching RSC from /react");
+      // If no RSC payload is available, fetch the RSC from the server
+      content = createFromFetch(fetch("/react"));
     }
     cache.set("app", content);
   }
