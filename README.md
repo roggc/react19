@@ -22,25 +22,15 @@ export default function () {
 
 As you can see, the `serverFunction` returns a promise and doesn't `await` for it to resolve (this is important).
 
-The project has the package [react-enhanced-suspense](https://www.npmjs.com/package/react-enhanced-suspense) installed. It is an enhanced `Suspense` that works as React's `Suspense` if no extra props are used. With it we can do instead:
-
-```typescript
-<Suspense fallback="Loading..." resourceId="my-resource">
-  {serverFunction()}
-</Suspense>
-```
-
-This is better because the resource (promise returned by `serverFunction`) will be stable between rerenders without the need to memoize it.
-
 This project is ready to develop either in **Typescript** or **Javascript**. If an `app.tsx` is found, then it will take preference over a possible `app.jsx` or `app.js`. There must be at least an `app.tsx` or `app.jsx` (or `app.js`).
 
 The app is developed in the `src` folder.
 
 The `setup` folder has the `server.js` and `client.jsx` files.
 
-The `server.js` file is the one executed by `node`. It defines an endpoint, `/`, that serves the `index.html` file found in the root directory of the project. But before sending it to the Client does two things: gets the RSC payload of the app (the one developed in the `src` folder) and injects it into the `index.html` file.
+The `server.js` file is the one executed by `node`. It defines two endpoints, `/` and `/rsc_payload`. The fist one, `/`, serves the `index.html` file found in the root directory of the project. Before sending this file to the Client, it injects the `div` tag where the app will be created in the Client, and the `main.js` script tag. When finishing obtaining the RSC payload, it injects it into the html file as a script tag before sending the document to the Client.
 
-Once in the Client, the code of `client.jsx` file enters in action. It takes the RSC payload injected in the html file and creates the content to be rendered by the app.
+The `client.jsx` file defines the `main.js` script. What it does is to look for RSC payload on the document. If found, creates the app in the `root` div. If not found calls the other endpoint that `server.js` file defines, that is, the `/rsc_payload` endpoint. This endpoint serves (streams) the RSC payload.
 
 To start the app in development mode you must run `npm run dev`. This will execute Webpack in watch mode and will start the app with the `node` command. It uses the package `concurrently` to execute both in parallel. The server is faster to be ready than Webpack, so when executing the command wait for Webpack log to show and then you can navigate to the page (`localhost:3000`).
 

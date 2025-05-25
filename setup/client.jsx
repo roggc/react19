@@ -31,11 +31,11 @@ function Root() {
         content = createFromReadableStream(response.body);
       } catch (error) {
         console.error("Error parsing RSC payload:", error);
-        content = createFromFetch(fetch("/react"));
+        content = createFromFetch(fetch("/rsc_payload"));
       }
     } else {
       // If no RSC payload is available, fetch the RSC from the server
-      content = createFromFetch(fetch("/react"));
+      content = createFromFetch(fetch("/rsc_payload"));
     }
     cache.set("app", content);
   }

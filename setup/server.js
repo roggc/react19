@@ -113,7 +113,7 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/react", (req, res) => {
+app.get("/rsc_payload", (req, res) => {
   try {
     const possibleExtensions = [".tsx", ".jsx", ".js"];
     let appPath = null;
