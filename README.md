@@ -28,9 +28,9 @@ The app is developed in the `src` folder.
 
 The `setup` folder has the `server.js` and `client.jsx` files.
 
-The `server.js` file is the one executed by `node`. It defines two endpoints, `/` and `/rsc_payload`. The fist one, `/`, serves the `index.html` file found in the root directory of the project. Before sending this file to the Client, it injects the `div` tag where the app will be created in the Client, and the `main.js` script tag. When finishing obtaining the RSC payload, it injects it into the html file as a script tag before ending streaming the document to the Client.
+The `server.js` file is the one executed by `node`. It defines two endpoints, `/` and `/rsc_payload`. The fist one, `/`, serves the `index.html` file found in the root directory of the project. Before sending this file to the Client, it injects the `div` tag where the app will be created in the Client, and the `main.js` script tag.
 
-The `client.jsx` file defines the `main.js` script. What it does is to look for RSC payload on the document. If found, creates the app in the `root` div. If not found calls the other endpoint that `server.js` file defines, that is, the `/rsc_payload` endpoint. This endpoint serves (streams) the RSC payload.
+The `client.jsx` file defines the `main.js` script. What it does is to fetch the RSC payload from the endpoint `/rsc_payload` and create the app with this RSC payload into the `div`.
 
 To start the app in development mode you must run `npm run dev`. This will execute Webpack in watch mode and will start the app with the `node` command. It uses the package `concurrently` to execute both in parallel. The server is faster to be ready than Webpack, so when executing the command wait for Webpack log to show and then you can navigate to the page (`localhost:3000`).
 
