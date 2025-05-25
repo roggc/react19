@@ -1,6 +1,6 @@
 # Project ready to develop with React 19 (Typescript or Javascript) to make SPA (Single Page Application) without SSR (Server Side Rendering)
 
-This project can be created with **`npx create-react19-app@latest --nossr my-app`**. **If you are looking for multi-page file based routing with SSR app then use the command: `npx create-react19-app@latest my-app` (without passing any option). It will create a project like [this one]() instead.**
+This project can be created with **`npx create-react19-app@latest --nossr my-app`**. **If you are looking for multi-page file based routing with SSR app then use the command: `npx create-react19-app@latest my-app` (without passing the `--nossr` option). It will create a project like [this one]() instead.**
 
 This is a project ready to develop with **React 19** to make **SPAs** (Single Page Applications) that work entirely in the **Client**, **without SSR** (Server Side Rendering).
 
@@ -39,3 +39,33 @@ There is no hot reloading, so when you do changes to the code, you have to reloa
 The project has the package [react-enhanced-suspense](https://www.npmjs.com/package/react-enhanced-suspense) installed. It is an enhanced `Suspense` that works as React's `Suspense` if no extra props are used.
 
 This project is inspired by [this other project](https://github.com/adamjberg/react-server-components).
+
+## About whether to use a Server Component or not
+
+If you do:
+
+```typescript
+// src/app.tsx
+
+export default async function App() {
+  await new Promise((resolve) => setTimeout(resolve, 8000));
+
+  return <>{/* content */}</>;
+}
+```
+
+This is terrible, because content will not show until 8 seconds, so for 8 seconds the user will see a blank screen in the page. So the technique to fetch data in a Server Component must be avoided because it increases a lot the First Contentful Paint (FCP), that is, when the user sees something.
+
+Then if you do not fetch data in a Server Component the utility of it is doubtful. You can opt in for a Client component instead:
+
+```typescript
+// src/app.tsx
+"use client";
+
+export default function App() {
+  // logic
+  return <>{/* content */}</>;
+}
+```
+
+and use Server Functions and `Suspense` to fetch data from the Server as explained before.
