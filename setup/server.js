@@ -24,11 +24,27 @@ app.use(express.static(path.resolve(process.cwd(), "public")));
 
 app.get("/", (req, res) => {
   try {
+    const possibleExtensions = [".html", ".htm"];
+    let htmlPath = null;
+
+    for (const ext of possibleExtensions) {
+      const candidatePath = path.resolve(process.cwd(), `src/index${ext}`);
+      if (existsSync(candidatePath)) {
+        htmlPath = candidatePath;
+        break;
+      }
+    }
+
+    if (!htmlPath) {
+      return res
+        .status(404)
+        .send(
+          `Page not found: No "index" file found in "src/" with supported extensions (.html, .htm)`
+        );
+    }
+
     // Read the HTML template
-    const htmlTemplate = readFileSync(
-      path.resolve(process.cwd(), "index.html"),
-      "utf8"
-    );
+    const htmlTemplate = readFileSync(htmlPath, "utf8");
 
     const bodyStartIndex = htmlTemplate.indexOf("<body");
     const bodyOpenEndIndex = htmlTemplate.indexOf(">", bodyStartIndex) + 1;
@@ -38,7 +54,9 @@ app.get("/", (req, res) => {
       bodyOpenEndIndex === -1 ||
       bodyCloseIndex === -1
     ) {
-      throw new Error("No <body> and </body> tags found in HTML template");
+      return res
+        .status(500)
+        .send(`No "body" opening and/or closing tags found in HTML template`);
     }
     const htmlStart = htmlTemplate.slice(0, bodyOpenEndIndex);
     const htmlEnd = htmlTemplate.slice(bodyCloseIndex);
