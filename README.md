@@ -15,12 +15,12 @@ Where `serverFunction` is:
 ```typescript
 "use server";
 
-export default function () {
-  return new Promise<string>((res) => setTimeout(() => res("Done"), 2000));
+export default async function () {
+  return await new Promise<string>((res) =>
+    setTimeout(() => res("Done"), 2000)
+  );
 }
 ```
-
-As you can see, the `serverFunction` returns a promise and doesn't `await` for it to resolve (this is important).
 
 This project is ready to develop either in **Typescript** or **Javascript**. If an `app.tsx` is found, then it will take preference over a possible `app.jsx` or `app.js`. There must be at least an `app.tsx` or `app.jsx` (or `app.js`).
 
